@@ -1,0 +1,5 @@
+{
+  "name": "PolyStrike Web",
+  "description": "A browser-based First Person Shooter using React and Three.js. Features raycast shooting, enemy spawning, and a low-poly aesthetic.",
+  "requestFramePermissions": []
+}
