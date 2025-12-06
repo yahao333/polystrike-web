@@ -1,17 +1,19 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 import { Enemy } from './Enemy';
 import { Player } from './Player';
 import { LevelMap } from './LevelMap';
-import { EnemyData } from '../types';
+import { EnemyData, MapTheme } from '../types';
 import * as THREE from 'three';
 
 interface GameSceneProps {
   onScore: (amount: number) => void;
   isLocked: boolean;
+  theme: MapTheme;
 }
 
-export const GameScene: React.FC<GameSceneProps> = ({ onScore, isLocked }) => {
+export const GameScene: React.FC<GameSceneProps> = ({ onScore, isLocked, theme }) => {
   const { camera, scene } = useThree();
   const [enemies, setEnemies] = useState<EnemyData[]>([]);
   
@@ -29,12 +31,16 @@ export const GameScene: React.FC<GameSceneProps> = ({ onScore, isLocked }) => {
     const x = (Math.random() - 0.5) * 40;
     const z = (Math.random() - 0.5) * 40;
     
+    // 50% Chance for Creeper
+    const type: 'soldier' | 'creeper' = Math.random() > 0.5 ? 'creeper' : 'soldier';
+    
     setEnemies(prev => [...prev, {
       id,
       position: [x, 1, z], // Y=1 so they stand on floor
       hp: 100,
       maxHp: 100,
-      status: 'alive'
+      status: 'alive',
+      enemyType: type
     }]);
   };
 
@@ -103,7 +109,7 @@ export const GameScene: React.FC<GameSceneProps> = ({ onScore, isLocked }) => {
 
   return (
     <group>
-      <LevelMap />
+      <LevelMap theme={theme} />
       
       <Player 
         onShoot={handleShoot} 

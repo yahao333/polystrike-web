@@ -1,3 +1,4 @@
+
 export interface Weapon {
   name: string;
   damage: number;
@@ -12,6 +13,7 @@ export interface EnemyData {
   hp: number;
   maxHp: number;
   status: 'alive' | 'dead';
+  enemyType: 'soldier' | 'creeper';
 }
 
 export interface GameState {
@@ -20,3 +22,5 @@ export interface GameState {
   isGameOver: boolean;
   enemies: EnemyData[];
 }
+
+export type MapTheme = 'default' | 'spaceship' | 'forest';
